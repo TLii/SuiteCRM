@@ -93,7 +93,7 @@ function clearCacheSU($thedir, $extension)
                      'group' => '',
              );
          ksort($sugar_config);
-         if (is_writable('config.php') && write_array_to_file("sugar_config", $sugar_config, 'config.php')) {
+         if (is_writable($GLOBALS['config_file_name']) && write_array_to_file("sugar_config", $sugar_config, $GLOBALS['config_file_name'])) {
              //writing to the file
          }
      }
@@ -118,7 +118,7 @@ function checkLoggerSettings()
             ),
           );
         ksort($sugar_config);
-        if (is_writable('config.php') && write_array_to_file("sugar_config", $sugar_config, 'config.php')) {
+        if (is_writable($GLOBALS['config_file_name']) && write_array_to_file("sugar_config", $sugar_config, $GLOBALS['config_file_name'])) {
             //writing to the file
         }
     }
@@ -145,7 +145,7 @@ function checkResourceSettings()
             'default_limit' => 1000,
           );
         ksort($sugar_config);
-        if (is_writable('config.php') && write_array_to_file("sugar_config", $sugar_config, 'config.php')) {
+        if (is_writable($GLOBALS['config_file_name']) && write_array_to_file("sugar_config", $sugar_config, $GLOBALS['config_file_name'])) {
             //writing to the file
         }
     }
@@ -236,7 +236,7 @@ function merge_passwordsetting($sugar_config, $sugar_version)
 
     ksort($sugar_config);
 
-    if (write_array_to_file("sugar_config", $sugar_config, "config.php")) {
+    if (write_array_to_file("sugar_config", $sugar_config, $GLOBALS['config_file_name'])) {
         return true;
     } else {
         return false;

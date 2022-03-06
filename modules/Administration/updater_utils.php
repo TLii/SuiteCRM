@@ -322,7 +322,7 @@ function set_sugarbeat($value)
     global $sugar_config;
     $_SUGARBEAT="sugarbeet";
     $sugar_config[$_SUGARBEAT] = $value;
-    write_array_to_file("sugar_config", $sugar_config, "config.php");
+    write_array_to_file("sugar_config", $sugar_config, $GLOBALS['config_file_name']);
 }
 function get_sugarbeat()
 {

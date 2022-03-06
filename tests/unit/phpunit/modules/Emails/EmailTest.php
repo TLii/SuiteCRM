@@ -335,7 +335,7 @@ class EmailTest extends SuitePHPUnitFrameworkTestCase
     public function testemail2GetMime(): void
     {
         //test with a filename
-        $result = BeanFactory::newBean('Emails')->email2GetMime('config.php');
+        $result = BeanFactory::newBean('Emails')->email2GetMime($GLOBALS['config_file_name']);
         self::assertEquals('text/x-php', $result);
     }
 

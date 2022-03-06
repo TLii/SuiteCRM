@@ -1652,7 +1652,7 @@ eoq;
         if (isset($manifest['version'])) {
             $version    = $manifest['version'];
         }
-        if (!is_writable("config.php")) {
+        if (!is_writable($GLOBALS['config_file_name'])) {
             return $mod_strings['ERR_UW_CONFIG'];
         }
 
@@ -1802,7 +1802,7 @@ eoq;
         if (isset($manifest['version'])) {
             $version    = $manifest['version'];
         }
-        if (!is_writable("config.php")) {
+        if (!is_writable($GLOBALS['config_file_name'])) {
             return $mod_strings['ERR_UW_CONFIG'];
         }
 
@@ -4077,7 +4077,12 @@ function merge_config_si_settings($write_to_upgrade_log=false, $config_location=
         global $argv;
         //We are assuming this is from the silentUpgrade scripts so argv[3] will point to SugarCRM install location
         if (isset($argv[3]) && is_dir($argv[3])) {
-            $config_location = $argv[3] . DIRECTORY_SEPARATOR . 'config.php';
+            if ($GLOBALS['config_file_name'][0] == '/') {
+              $config_location = $GLOBALS['config_file_name'];  
+            } else {
+                $config_location = $argv[3] . DIRECTORY_SEPARATOR . $GLOBALS['config_file_name'];
+            }
+            
         }
     }
 

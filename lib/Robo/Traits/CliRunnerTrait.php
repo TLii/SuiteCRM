@@ -67,8 +67,16 @@ trait CliRunnerTrait
          */
         $root = __DIR__ . '/../../../';
 
-        require $root . 'config.php';
-        require $root . 'config_override.php';
+        if ($GLOBALS['config_file_name'][0] == '/') {
+            require $GLOBALS['config_file_name'];
+        } else {
+            require $root . $GLOBALS['config_file_name'];
+        }
+        if ($GLOBALS['config_override_file_name'][0] == '/') {
+            require $GLOBALS['config_override_file_name'];
+        } else {
+            require $root . $GLOBALS['config_override_file_name'];
+        }
         require_once $root . 'include/entryPoint.php';
 
         // Load up the config.test.php file. This is used to define configuration values for the test environment.

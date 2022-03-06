@@ -79,7 +79,7 @@ function clearCacheSU($thedir, $extension)
                      'group' => '',
              );
          ksort($sugar_config);
-         if (is_writable('config.php') && write_array_to_file("sugar_config", $sugar_config, 'config.php')) {
+         if (is_writable($GLOBALS['config_file_name']) && write_array_to_file("sugar_config", $sugar_config, $GLOBALS['config_file_name'])) {
              //writing to the file
          }
      }
@@ -104,7 +104,7 @@ function checkLoggerSettings()
             ),
           );
         ksort($sugar_config);
-        if (is_writable('config.php') && write_array_to_file("sugar_config", $sugar_config, 'config.php')) {
+        if (is_writable($GLOBALS['config_file_name']) && write_array_to_file("sugar_config", $sugar_config, $GLOBALS['config_file_name'])) {
             //writing to the file
         }
     }
@@ -131,7 +131,7 @@ function checkResourceSettings()
             'default_limit' => 1000,
           );
         ksort($sugar_config);
-        if (is_writable('config.php') && write_array_to_file("sugar_config", $sugar_config, 'config.php')) {
+        if (is_writable($GLOBALS['config_file_name']) && write_array_to_file("sugar_config", $sugar_config, $GLOBALS['config_file_name'])) {
             //writing to the file
         }
     }
@@ -212,7 +212,7 @@ function merge_passwordsetting($sugar_config, $sugar_version)
 
     ksort($sugar_config);
 
-    if (write_array_to_file("sugar_config", $sugar_config, "config.php")) {
+    if (write_array_to_file("sugar_config", $sugar_config, $GLOBALS['config_file_name'])) {
         return true;
     } else {
         return false;
@@ -602,7 +602,7 @@ if ($upgradeType == constant('DCE_INSTANCE')) {
         logThis('Set default_max_tabs to 10', $path);
         $sugar_config['default_max_tabs'] = 10;
 
-        if (!write_array_to_file("sugar_config", $sugar_config, "config.php")) {
+        if (!write_array_to_file("sugar_config", $sugar_config, $GLOBALS['config_file_name'])) {
             logThis('*** ERROR: could not write config.php! - upgrade will fail!', $path);
             $errors[] = 'Could not write config.php!';
         }
@@ -746,7 +746,7 @@ if ($upgradeType == constant('DCE_INSTANCE')) {
         }
 
         require("sugar_version.php");
-        require('config.php');
+        require($GLOBALS['config_file_name']);
         global $sugar_config;
 
         require("{$instanceUpgradePath}/sugar_version.php");

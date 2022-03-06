@@ -28,7 +28,7 @@ function install_ss()
         $sugar_config['securitysuite_strict_rights'] = false;
 
         //ksort($sugar_config);
-        //write_array_to_file('sugar_config', $sugar_config, 'config.php');
+        //write_array_to_file('sugar_config', $sugar_config, $GLOBALS['config_file_name']);
     }
 
     if (!array_key_exists('securitysuite_strict_rights', $sugar_config)) {
@@ -36,7 +36,7 @@ function install_ss()
         $sugar_config['securitysuite_strict_rights'] = true;
 
         //ksort($sugar_config);
-        //write_array_to_file('sugar_config', $sugar_config, 'config.php');
+        //write_array_to_file('sugar_config', $sugar_config, $GLOBALS['config_file_name']);
     }
 
     if (!array_key_exists('securitysuite_filter_user_list', $sugar_config)) {
@@ -44,7 +44,7 @@ function install_ss()
         $sugar_config['securitysuite_filter_user_list'] = false;
 
         //ksort($sugar_config);
-        //write_array_to_file('sugar_config', $sugar_config, 'config.php');
+        //write_array_to_file('sugar_config', $sugar_config, $GLOBALS['config_file_name']);
     }
 
     if (!isset($GLOBALS['sugar_config']['addAjaxBannedModules'])) {
@@ -54,7 +54,7 @@ function install_ss()
 
     $sugar_config['securitysuite_version'] = '6.5.17';
     ksort($sugar_config);
-    write_array_to_file('sugar_config', $sugar_config, 'config.php');
+    write_array_to_file('sugar_config', $sugar_config, $GLOBALS['config_file_name']);
 
     installSSHooks();
 }

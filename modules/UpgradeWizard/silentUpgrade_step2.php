@@ -66,8 +66,8 @@ function checkConfigForPermissions()
             'group' => '',
         ];
         ksort($sugar_config);
-        if (is_writable('config.php')) {
-            write_array_to_file("sugar_config", $sugar_config, 'config.php');
+        if (is_writable($GLOBALS['config_file_name'])) {
+            write_array_to_file("sugar_config", $sugar_config, $GLOBALS['config_file_name']);
         }
     }
 }
@@ -92,8 +92,8 @@ function checkLoggerSettings()
                 ),
         );
         ksort($sugar_config);
-        if (is_writable('config.php')) {
-            write_array_to_file('sugar_config', $sugar_config, 'config.php');
+        if (is_writable($GLOBALS['config_file_name'])) {
+            write_array_to_file('sugar_config', $sugar_config, $GLOBALS['config_file_name']);
         }
     }
 }
@@ -119,8 +119,8 @@ function checkResourceSettings()
                 'default_limit' => 1000,
             ];
         ksort($sugar_config);
-        if (is_writable('config.php')) {
-            write_array_to_file('sugar_config', $sugar_config, 'config.php');
+        if (is_writable($GLOBALS['config_file_name'])) {
+            write_array_to_file('sugar_config', $sugar_config, $GLOBALS['config_file_name']);
         }
     }
 }
@@ -257,7 +257,7 @@ global $sugar_config;
 $isDCEInstance = false;
 $errors = [];
 
-require('config.php');
+require($GLOBALS['config_file_name']);
 if (isset($argv[3]) && is_dir($argv[3])) {
     $cwd = $argv[3];
     chdir($cwd);

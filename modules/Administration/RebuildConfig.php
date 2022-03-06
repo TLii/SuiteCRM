@@ -55,7 +55,7 @@ $btn_rebuild_config     = $mod_strings['BTN_REBUILD_CONFIG'];
 $disable_config_rebuild = 'disabled="disabled"';
 
 // check the status of the config file
-if (is_writable('config.php')) {
+if (is_writable($GLOBALS['config_file_name'])) {
     $config_check = $mod_strings['MSG_CONFIG_FILE_READY_FOR_REBUILD'];
     $disable_config_rebuild = '';
     $config_file_ready = true;

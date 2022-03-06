@@ -56,7 +56,7 @@ class php_zip_utilsTest extends SuitePHPUnitFrameworkTestCase
         //execute the method and test if it returns true and verify the if unzipped files exist
 
         $cache_dir = rtrim($GLOBALS['sugar_config']['cache_dir'], '/\\');
-        $files_list = array('config.php', 'config_override.php');
+        $files_list = array($GLOBALS['config_file_name'], $GLOBALS['config_override_file_name']);
         $file = $cache_dir . '/zipTest.zip';
 
         //creata a zip file first, to unzip
@@ -79,7 +79,7 @@ class php_zip_utilsTest extends SuitePHPUnitFrameworkTestCase
     {
         // execute the method and test if it returns true and verify the if unzipped files exist
         $cache_dir = rtrim($GLOBALS['sugar_config']['cache_dir'], '/\\');
-        $files_list = array('config.php', 'config_override.php');
+        $files_list = array($GLOBALS['config_file_name'], $GLOBALS['config_override_file_name']);
         $file = $cache_dir . '/zipTest.zip';
 
         //create a a zip file first, to unzip
@@ -120,7 +120,7 @@ class php_zip_utilsTest extends SuitePHPUnitFrameworkTestCase
         //execute the method and verify the if zipped file exist
         $cache_dir = rtrim($GLOBALS['sugar_config']['cache_dir'], '/\\');
         $file = $cache_dir . '/ziplistTest.zip';
-        $files_list = array('config.php', 'config_override.php');
+        $files_list = array($GLOBALS['config_file_name'], $GLOBALS['config_override_file_name']);
 
         if (file_exists($file)) {
             unlink($file);

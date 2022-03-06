@@ -5982,7 +5982,7 @@ class InboundEmail extends SugarBean
             var_export($sugar_config, true) .
             ";\n?>\n";
 
-        write_array_to_file("sugar_config", $sugar_config, "config.php");
+        write_array_to_file("sugar_config", $sugar_config, $GLOBALS['config_file_name']);
     }
 
     /**

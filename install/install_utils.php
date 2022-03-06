@@ -462,8 +462,8 @@ function writeSugarConfig($sugar_config)
         '$sugar_config = ' .
         var_export($sugar_config, true) .
         ";\n?>\n";
-    if (is_writable('config.php')) {
-        write_array_to_file("sugar_config", $sugar_config, "config.php");
+    if (is_writable($GLOBALS['config_file_name'])) {
+        write_array_to_file("sugar_config", $sugar_config, $GLOBALS['config_file_name']);
     }
 }
 
@@ -759,10 +759,10 @@ function handleSugarConfig()
     echo "<b>{$mod_strings['LBL_PERFORM_CONFIG_PHP']} (config.php)</b><br>";
     ///////////////////////////////////////////////////////////////////////////////
     ////    $sugar_config SETTINGS
-    if (is_file('config.php')) {
-        $is_writable = is_writable('config.php');
+    if (is_file($GLOBALS['config_file_name'])) {
+        $is_writable = is_writable($GLOBALS['config_file_name']);
         // require is needed here (config.php is sometimes require'd from install.php)
-        require('config.php');
+        require($GLOBALS['config_file_name']);
     } else {
         $is_writable = is_writable('.');
     }
@@ -910,7 +910,7 @@ function handleSugarConfig()
         '$sugar_config = ' .
         var_export($sugar_config, true) .
         ";\n?>\n";
-    if ($is_writable && write_array_to_file("sugar_config", $sugar_config, "config.php")) {
+    if ($is_writable && write_array_to_file("sugar_config", $sugar_config, $GLOBALS['config_file_name'])) {
         // was 'Done'
     } else {
         echo 'failed<br>';
@@ -924,7 +924,7 @@ function handleSugarConfig()
 
 
     //Now merge the config_si.php settings into config.php
-    if (file_exists('config.php') && file_exists('config_si.php')) {
+    if (file_exists($GLOBALS['config_file_name']) && file_exists('config_si.php')) {
         require_once('modules/UpgradeWizard/uw_utils.php');
         merge_config_si_settings(false, 'config.php', 'config_si.php');
     }

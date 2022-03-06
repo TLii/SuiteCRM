@@ -605,7 +605,7 @@ function addCronAllowedUser($addUser)
     }
 
     ksort($sugar_config);
-    write_array_to_file('sugar_config', $sugar_config, 'config.php');
+    write_array_to_file('sugar_config', $sugar_config, $GLOBALS['config_file_name']);
 }
 
 /**
@@ -4606,7 +4606,7 @@ function rebuildConfigFile($sugar_config, $sugar_version)
 
     ksort($sugar_config);
 
-    if (write_array_to_file('sugar_config', $sugar_config, 'config.php')) {
+    if (write_array_to_file('sugar_config', $sugar_config, $GLOBALS['config_file_name'])) {
         return true;
     }
     return false;
@@ -4620,7 +4620,7 @@ function rebuildConfigFile($sugar_config, $sugar_version)
 function loadCleanConfig()
 {
     $sugar_config = array();
-    require 'config.php';
+    require $GLOBALS['config_file_name'];
 
     return $sugar_config;
 }

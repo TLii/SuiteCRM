@@ -87,7 +87,7 @@ class ResourceManager
     public function setup($module)
     {
         //Check if config.php exists
-        if (!file_exists('config.php') || empty($module)) {
+        if (!file_exists($GLOBALS['config_file_name']) || empty($module)) {
             return false;
         }
 

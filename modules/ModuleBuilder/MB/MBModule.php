@@ -370,7 +370,7 @@ class MBModule
             if (substr($filename, 0, 1) == '.') {
                 continue ;
             }
-            if ($filename != 'metadata' && $filename != 'Dashlets' && $filename != 'relationships' && $filename != 'language' && $filename != 'config.php' && $filename != 'relationships.php' && $filename != 'vardefs.php') {
+            if ($filename != 'metadata' && $filename != 'Dashlets' && $filename != 'relationships' && $filename != 'language' && $filename != $GLOBALS['config_file_name'] && $filename != 'relationships.php' && $filename != 'vardefs.php') {
                 copy_recursive("$from/$filename", "$to/$filename") ;
             }
         }

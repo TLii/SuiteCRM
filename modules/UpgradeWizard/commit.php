@@ -176,7 +176,7 @@ eoq;
         if (isset($manifest['version'])) {
             $version = $manifest['version'];
         }
-        if (!is_writable('config.php')) {
+        if (!is_writable($GLOBALS['config_file_name'])) {
             return $mod_strings['ERR_UW_CONFIG'];
         }
 

@@ -65,7 +65,7 @@ function installSystemEmailTemplates()
     }
 
     ksort($sugar_config);
-    write_array_to_file('sugar_config', $sugar_config, 'config.php');
+    write_array_to_file('sugar_config', $sugar_config, $GLOBALS['config_file_name']);
 }
 
 /**
@@ -92,7 +92,7 @@ function setSystemEmailTemplatesDefaultConfig()
     }
 
     ksort($sugar_config);
-    write_array_to_file('sugar_config', $sugar_config, 'config.php');
+    write_array_to_file('sugar_config', $sugar_config, $GLOBALS['config_file_name']);
 }
 
 

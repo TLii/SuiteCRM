@@ -112,7 +112,7 @@ class PackageManagerComm
             $GLOBALS['log']->debug("Begin SugarDepot Login");
             PackageManagerComm::initialize(false);
             require('sugar_version.php');
-            require('config.php');
+            require($GLOBALS['config_file_name']);
             $credentials = PackageManager::getCredentials();
             if (empty($license)) {
                 loadLicense();

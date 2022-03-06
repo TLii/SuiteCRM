@@ -1908,7 +1908,7 @@ if(!isset($_SESSION['setup_db_charset']) || $_SESSION['setup_db_charset'] ==''){
 //----------------- siteConfig_a.php Site Config & admin user
 
 
-if (is_file("config.php")) {
+if (is_file($GLOBALS['config_file_name'])) {
     if (!empty($sugar_config['default_theme'])) {
         $_SESSION['site_default_theme'] = $sugar_config['default_theme'];
     }

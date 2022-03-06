@@ -166,7 +166,7 @@ if (!empty($dependencies)) {
 switch ($install_type) {
     case "full":
     case "patch":
-        if (!is_writable("config.php")) {
+        if (!is_writable($GLOBALS['config_file_name'])) {
             die($mod_strings['ERR_UW_CONFIG']);
         }
         break;
@@ -195,7 +195,7 @@ switch ($install_type) {
         }
         $hidden_fields .= "<input type=hidden name=\"new_lang_desc\" value=\"$new_lang_desc\"/>";
 
-        if (!is_writable("config.php")) {
+        if (!is_writable($GLOBALS['config_file_name'])) {
             die($mod_strings['ERR_UW_CONFIG']);
         }
         break;

@@ -375,11 +375,11 @@ class file_utilsTest extends SuitePHPUnitFrameworkTestCase
     {
         //execute the method and test if it returns expected values
 
-        $expected = file_get_contents('config.php');
+        $expected = file_get_contents($GLOBALS['config_file_name']);
 
         //retbytes parameter false
         ob_start();
-        $actual = readfile_chunked('config.php', false);
+        $actual = readfile_chunked($GLOBALS['config_file_name'], false);
         $renderedContent = ob_get_contents();
         ob_end_clean();
 
@@ -388,7 +388,7 @@ class file_utilsTest extends SuitePHPUnitFrameworkTestCase
 
         //retbytes parameter true/default
         ob_start();
-        $actual = readfile_chunked('config.php');
+        $actual = readfile_chunked($GLOBALS['config_file_name']);
         $renderedContent = ob_get_contents();
         ob_end_clean();
 
@@ -434,9 +434,9 @@ class file_utilsTest extends SuitePHPUnitFrameworkTestCase
 
         //test with valid filename
         $expected = '9e5e2527d69c009a81b8ecd730f3957e';
-        $hash = fileToHash('config.php');
+        $hash = fileToHash($GLOBALS['config_file_name']);
         self::assertSame($expected, $hash);
-        self::assertSame('config.php', $_SESSION['file2Hash'][$hash]);
+        self::assertSame($GLOBALS['config_file_name'], $_SESSION['file2Hash'][$hash]);
 
         if (isset($_session)) {
             $_SESSION = $_session;
@@ -458,9 +458,9 @@ class file_utilsTest extends SuitePHPUnitFrameworkTestCase
         self::assertFalse($actual);
 
         //test with a newly generated hash
-        $hash = fileToHash('config.php');
+        $hash = fileToHash($GLOBALS['config_file_name']);
         $actual = hashToFile($hash);
-        self::assertSame('config.php', $actual);
+        self::assertSame($GLOBALS['config_file_name'], $actual);
 
         if (isset($_session)) {
             $_SESSION = $_session;

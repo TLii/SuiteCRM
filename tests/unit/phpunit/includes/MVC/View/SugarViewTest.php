@@ -176,7 +176,7 @@ class SugarViewTest extends SuitePHPUnitFrameworkTestCase
         //execute the method and check if it works and doesn't throws an exception
         //use any valid file path, we just need to avoid failing require_once
         try {
-            $SugarView->includeClassicFile('config.php');
+            $SugarView->includeClassicFile($GLOBALS['config_file_name']);
         } catch (Exception $e) {
             self::fail($e->getMessage() . "\nTrace:\n" . $e->getTraceAsString());
         }

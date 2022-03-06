@@ -209,8 +209,8 @@ foreach ($beanFiles as $bean => $file) {
 echo "<br>";
 // load up the config_override.php file.
 // This is used to provide default user settings
-if (is_file("config_override.php")) {
-    require_once("config_override.php");
+if (is_file($GLOBALS['config_override_file_name'])) {
+    require_once($GLOBALS['config_override_file_name']);
 }
 
 $db                 = DBManagerFactory::getInstance();

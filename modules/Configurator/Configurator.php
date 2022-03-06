@@ -333,11 +333,11 @@ class Configurator
     public function readOverride()
     {
         $sugar_config = array();
-        if (file_exists('config_override.php')) {
-            if (!is_readable('config_override.php')) {
+        if (file_exists($GLOBALS['config_override_file_name'])) {
+            if (!is_readable($GLOBALS['config_override_file_name'])) {
                 $GLOBALS['log']->fatal("Unable to read the config_override.php file. Check the file permissions");
             } else {
-                include('config_override.php');
+                include($GLOBALS['config_override_file_name']);
             }
         }
         return $sugar_config;
@@ -346,14 +346,14 @@ class Configurator
     public function saveOverride($override)
     {
         require_once('install/install_utils.php');
-        if (!file_exists('config_override.php')) {
-            touch('config_override.php');
+        if (!file_exists($GLOBALS['config_override_file_name'])) {
+            touch($GLOBALS['config_override_file_name']);
         }
-        if (!(make_writable('config_override.php')) || !(is_writable('config_override.php'))) {
+        if (!(make_writable($GLOBALS['config_override_file_name'])) || !(is_writable($GLOBALS['config_override_file_name']))) {
             $GLOBALS['log']->fatal("Unable to write to the config_override.php file. Check the file permissions");
             return;
         }
-        sugar_file_put_contents('config_override.php', $override);
+        sugar_file_put_contents($GLOBALS['config_override_file_name'], $override);
     }
 
     public function overrideClearDuplicates($array_name, $key)

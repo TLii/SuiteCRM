@@ -1767,7 +1767,7 @@ EOQ;
         $sugar_config['email_default_client'] = 'sugar';
         $sugar_config['email_default_editor'] = 'html';
         ksort($sugar_config);
-        write_array_to_file('sugar_config', $sugar_config, 'config.php');
+        write_array_to_file('sugar_config', $sugar_config, $GLOBALS['config_file_name']);
 
         return $sugar_config;
     }

@@ -54,7 +54,7 @@ if (!defined('PHP_VERSION_ID')) {
     define('PHP_VERSION_ID', ($version_array[0] * 10000 + $version_array[1] * 100 + $version_array[2]));
 }
 
-if (empty($GLOBALS['installing']) && !file_exists('config.php')) {
+if (empty($GLOBALS['installing']) && !file_exists($GLOBALS['config_file_name'])) {
     header('Location: install.php');
     throw new Exception('SuiteCRM is not installed. Entry point needs an installed SuiteCRM, please install first.');
 }
@@ -68,13 +68,21 @@ if (file_exists($autoloader)) {
 }
 
 // config|_override.php
-if (is_file('config.php')) {
-    require_once 'config.php'; // provides $sugar_config
+// Check if custom location is set.
+if (getenv('SUITECRM_CONFIG_LOC') != null) {
+    $GLOBALS['config_file_name'] = getenv('SUITECRM_CONFIG_LOC') . '/config.php';
+    $GLOBALS['config_override_file_name'] = getenv('SUITECRM_CONFIG_LOC') . '/config_override.php';
+} else {
+    $GLOBALS['config_file_name'] = 'config.php';
+    $GLOBALS['config_override_file_name'] = 'config_override.php';
+}
+if (is_file($GLOBALS['config_file_name'])) {
+    require_once $GLOBALS['config_file_name']; // provides $sugar_config
 }
 
 // load up the config_override.php file.  This is used to provide default user settings
-if (is_file('config_override.php')) {
-    require_once 'config_override.php';
+if (is_file($GLOBALS['config_override_file_name'])) {
+    require_once $GLOBALS['config_override_file_name'];
 }
 if (empty($GLOBALS['installing']) && empty($sugar_config['dbconfig']['db_name'])) {
     header('Location: install.php');

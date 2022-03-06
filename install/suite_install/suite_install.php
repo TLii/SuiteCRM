@@ -16,7 +16,7 @@ $sugar_config['search']['defaultEngine'] = 'BasicSearchEngine';
 $sugar_config['imap_test'] = false;
 
 ksort($sugar_config);
-write_array_to_file('sugar_config', $sugar_config, 'config.php');
+write_array_to_file('sugar_config', $sugar_config, $GLOBALS['config_file_name']);
 
 require_once('modules/Administration/updater_utils.php');
 set_CheckUpdates_config_setting('manual');

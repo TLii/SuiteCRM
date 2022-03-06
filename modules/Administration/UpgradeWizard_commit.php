@@ -326,7 +326,7 @@ switch ($install_type) {
             }
         }
         ksort($sugar_config);
-        if (!write_array_to_file("sugar_config", $sugar_config, "config.php")) {
+        if (!write_array_to_file("sugar_config", $sugar_config, $GLOBALS['config_file_name'])) {
             die($mod_strings['ERR_UW_CONFIG_FAILED']);
         }
         break;
@@ -414,7 +414,7 @@ switch ($install_type) {
         $sugar_config['sugar_version'] = $sugar_version;
         ksort($sugar_config);
 
-        if (!write_array_to_file("sugar_config", $sugar_config, "config.php")) {
+        if (!write_array_to_file("sugar_config", $sugar_config, $GLOBALS['config_file_name'])) {
             die($mod_strings['ERR_UW_UPDATE_CONFIG']);
         }
         break;

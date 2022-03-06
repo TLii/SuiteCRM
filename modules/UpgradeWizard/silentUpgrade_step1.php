@@ -97,8 +97,8 @@ function checkConfigForPermissions()
             'group' => '',
         ];
         ksort($sugar_config);
-        if (is_writable('config.php')) {
-            write_array_to_file("sugar_config", $sugar_config, 'config.php');
+        if (is_writable($GLOBALS['config_file_name'])) {
+            write_array_to_file("sugar_config", $sugar_config, $GLOBALS['config_file_name']);
         }
     }
 }
@@ -123,8 +123,8 @@ function checkLoggerSettings()
                 ],
         ];
         ksort($sugar_config);
-        if (is_writable('config.php')) {
-            write_array_to_file("sugar_config", $sugar_config, 'config.php');
+        if (is_writable($GLOBALS['config_file_name'])) {
+            write_array_to_file("sugar_config", $sugar_config, $GLOBALS['config_file_name']);
         }
     }
 }
@@ -138,8 +138,8 @@ function checkLeadConversionSettings()
     if (!isset($sugar_config['lead_conv_activity_opt'])) {
         $sugar_config['lead_conv_activity_opt'] = 'copy';
         ksort($sugar_config);
-        if (is_writable('config.php')) {
-            write_array_to_file('sugar_config', $sugar_config, 'config.php');
+        if (is_writable($GLOBALS['config_file_name'])) {
+            write_array_to_file('sugar_config', $sugar_config, $GLOBALS['config_file_name']);
         }
     }
 }
@@ -165,8 +165,8 @@ function checkResourceSettings()
                 'default_limit' => 1000,
             ];
         ksort($sugar_config);
-        if (is_writable('config.php')) {
-            write_array_to_file('sugar_config', $sugar_config, 'config.php');
+        if (is_writable($GLOBALS['config_file_name'])) {
+            write_array_to_file('sugar_config', $sugar_config, $GLOBALS['config_file_name']);
         }
     }
 }
@@ -282,7 +282,7 @@ function merge_passwordsetting($sugar_config, $sugar_version)
 
     ksort($sugar_config);
 
-    if (write_array_to_file('sugar_config', $sugar_config, 'config.php')) {
+    if (write_array_to_file('sugar_config', $sugar_config, $GLOBALS['config_file_name'])) {
         return true;
     }
 
@@ -477,7 +477,7 @@ if ($upgradeType !== constant('DCE_INSTANCE')) {
         }
     }
 
-    require 'config.php';
+    require $GLOBALS['config_file_name'];
     //require_once('modules/UpgradeWizard/uw_utils.php'); // must upgrade UW first
     if (isset($argv[3]) && is_dir($argv[3])) {
         $cwd = $argv[3];
@@ -795,27 +795,27 @@ if ($upgradeType !== constant('DCE_INSTANCE')) {
 
 
             require "sugar_version.php";
-            require 'config.php';
+            require $GLOBALS['config_file_name'];
             global $sugar_config;
 
-            if (!write_array_to_file('sugar_config', $sugar_config, 'config.php')) {
+            if (!write_array_to_file('sugar_config', $sugar_config, $GLOBALS['config_file_name'])) {
                 logThis('*** ERROR: could not write config.php! - upgrade will fail!', $path);
                 $errors[] = 'Could not write config.php!';
             }
 
-            if (!write_array_to_file('sugar_config', $sugar_config, 'config.php')) {
+            if (!write_array_to_file('sugar_config', $sugar_config, $GLOBALS['config_file_name'])) {
                 logThis('*** ERROR: could not write config.php! - upgrade will fail!', $path);
                 $errors[] = 'Could not write config.php!';
             }
 
             if (version_compare($new_sugar_version, $sugar_version, '=')) {
-                require 'config.php';
+                require $GLOBALS['config_file_name'];
             }
             //upgrade the sugar version prior to writing config file.
             logThis('Upgrade the sugar_version', $path);
             $sugar_config['sugar_version'] = $sugar_version;
 
-            if (!write_array_to_file('sugar_config', $sugar_config, 'config.php')) {
+            if (!write_array_to_file('sugar_config', $sugar_config, $GLOBALS['config_file_name'])) {
                 logThis('*** ERROR: could not write config.php! - upgrade will fail!', $path);
                 $errors[] = 'Could not write config.php!';
             }

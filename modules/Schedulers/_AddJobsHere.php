@@ -281,7 +281,7 @@ function runMassEmailCampaign()
 
     global $beanList;
     global $beanFiles;
-    require("config.php");
+    require($GLOBALS['config_file_name']);
     require('include/modules.php');
     if (!class_exists('AclController')) {
         require('modules/ACL/ACLController.php');

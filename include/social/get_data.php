@@ -44,7 +44,7 @@ $social = $_REQUEST['social'];
 $twitter_user = $_REQUEST['twitter_user'];
 
 if(!empty($_REQUEST['code'])){
-    include_once("config.php");
+    include_once($GLOBALS['config_file_name']);
     //nasty way of fixing the facebook login bug.
     header("Location: " . $sugar_config['site_url'] . "?module=" . $_REQUEST['module'] . "&action=DetailView&record=" . $_REQUEST['record'] . "&");
 }

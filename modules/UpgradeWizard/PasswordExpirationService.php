@@ -86,6 +86,6 @@ class PasswordExpirationService
     private function setExpiration()
     {
         $this->suiteConfig['passwordsetting']['systexpiration'] = '';
-        write_array_to_file("sugar_config", $this->suiteConfig, "config.php");
+        write_array_to_file("sugar_config", $this->suiteConfig, $GLOBALS['config_file_name']);
     }
 }

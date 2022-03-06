@@ -318,6 +318,6 @@ class LanguageManager
             $GLOBALS['sugar_config']['js_lang_version'] += 1;
         }
 
-        write_array_to_file("sugar_config", $GLOBALS['sugar_config'], "config.php");
+        write_array_to_file("sugar_config", $GLOBALS['sugar_config'], $GLOBALS['config_file_name']);
     }
 }

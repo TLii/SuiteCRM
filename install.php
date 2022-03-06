@@ -403,6 +403,16 @@ if ($_SERVER['SERVER_PORT']=='80') {
 $web_root = str_replace("/install.php", "", $web_root);
 $web_root = "http://$web_root";
 
+// Check if a custom config file location has been provided as an environment variable.
+// In containers, one might want to place config under a persistent directory.
+// Defaults to 'config.php'
+
+if (getenv('SUITECRM_CONFIG_LOC') != null) {
+    $GLOBALS['config_file_name'] = getenv('SUITECRM_CONFIG_LOC').'/config.php';
+} else {
+    $GLOBALS['config_file_name'] = 'config.php';
+}
+
 if (!isset($_SESSION['oc_install']) || $_SESSION['oc_install'] == false) {
     //$workflow[] = 'siteConfig_a.php';
     if (isset($_SESSION['install_type']) && !empty($_SESSION['install_type']) &&
@@ -410,8 +420,8 @@ if (!isset($_SESSION['oc_install']) || $_SESSION['oc_install'] == false) {
         $workflow[] = 'siteConfig_b.php';
     }
 } else {
-    if (is_readable('config.php')) {
-        require_once('config.php');
+    if (is_readable($GLOBALS['config_file_name'])) {
+        require_once($GLOBALS['config_file_name']);
     }
 }
 
@@ -561,10 +571,10 @@ EOQ;
                 $_SESSION['license_submitted']      = true;
 
 
-                // eventually default all vars here, with overrides from config.php
-                if (is_readable('config.php')) {
+                // eventually default all vars here, with overrides from config file
+                if (is_readable($GLOBALS['config_file_name'])) {
                     global $sugar_config;
-                    include_once('config.php');
+                    include_once($GLOBALS['config_file_name']);
                 }
 
                 $default_db_type = 'mysql';
@@ -707,8 +717,8 @@ EOQ;
                 break;
             }
             // check to see if installer has been disabled
-            if (is_readable('config.php') && (filesize('config.php') > 0)) {
-                include_once('config.php');
+            if (is_readable($GLOBALS['config_file_name']) && (filesize($GLOBALS['config_file_name']) > 0)) {
+                include_once($GLOBALS['config_file_name']);
 
                 if (!isset($sugar_config['installer_locked']) || $sugar_config['installer_locked'] == true) {
                     $the_file = 'installDisabled.php';
@@ -776,8 +786,8 @@ EOQ;
             require_once('jssource/minify.php');
             //since this is a SilentInstall we still need to make sure that
             //the appropriate files are writable
-            // config.php
-            make_writable('./config.php');
+            // Main config file
+            make_writable($GLOBALS['config_file_name']);
 
             // custom dir
             make_writable('./custom');

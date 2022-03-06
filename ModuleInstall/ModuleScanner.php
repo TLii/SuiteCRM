@@ -520,10 +520,10 @@ class ModuleScanner
     public function isConfigFile($file)
     {
         $real = realpath($file);
-        if ($real == realpath("config.php")) {
+        if ($real == realpath($GLOBALS['config_file_name'])) {
             return true;
         }
-        if (file_exists("config_override.php") && $real == realpath("config_override.php")) {
+        if (file_exists($GLOBALS['config_override_file_name']) && $real == realpath($GLOBALS['config_override_file_name'])) {
             return true;
         }
         return false;

@@ -48,7 +48,7 @@ if (!isset($install_script) || !$install_script) {
     die($mod_strings['ERR_NO_DIRECT_SCRIPT']);
 }
 
-if (is_file("config.php")) {
+if (is_file($GLOBALS['config_file_name'])) {
     if (!empty($sugar_config['default_theme'])) {
         $_SESSION['site_default_theme'] = $sugar_config['default_theme'];
     }
