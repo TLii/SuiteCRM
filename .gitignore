@@ -21,7 +21,6 @@ modules/AOS_PDF_Templates/PDF_Lib/ttfontdata/
 # Configuration files should be ignored.
 /config.php
 /config_override.php
-/config_si.php
 tests/config.test.php
 # Connector configuration should also be ignored.
 custom/modules/Connectors/connectors/sources/ext/*/*/config.php
