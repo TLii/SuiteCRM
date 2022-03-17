@@ -15,7 +15,7 @@ fi
 # Note: This overwrites existing customizations. Not necessarily a good thing.
 # TODO: Change this behavior.
 if [[ -d $SUITECRM_INSTALL_DIR/custom && -d $SUITECRM_INSTALL_DIR/newcustom ]]; then
-    mv "$SUITECRM_INSTALL_DIR"/newcustom/* "$SUITECRM_INSTALL_DIR"/custom/ >&1
+    rsync "$SUITECRM_INSTALL_DIR"/newcustom/* "$SUITECRM_INSTALL_DIR"/custom/ >&1
 fi
 
 # Use install.lock to check if already installed
