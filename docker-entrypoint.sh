@@ -21,7 +21,7 @@ fi
 # Use install.lock to check if already installed
 if [[ ! -f $SUITECRM_INSTALL_DIR/custom/install.lock ]] && [[ -n $SUITECRM_SILENT_INSTALL ]]; then
     echo "Running silent install..." >&1;
-    php -r "\$_SERVER['HTTP_HOST'] = 'localhost'; \$_SERVER['REQUEST_URI'] = 'install.php';\$_REQUEST = array('goto' => 'SilentInstall', 'cli' => true);require_once 'install.php';" >&1; 
+    php -r "\$_SERVER['HTTP_HOST'] = 'localhost'; \$_SERVER['REQUEST_URI'] = '$SUITECRM_INSTALL_DIR/install.php';\$_REQUEST = array('goto' => 'SilentInstall', 'cli' => true);require_once '$SUITECRM_INSTALL_DIR/install.php';" >&1; 
     touch $SUITECRM_INSTALL_DIR/custom/install.lock || (echo "Failed creating install lock" >&2; exit 4);
     echo "Installation ready" >&1
 fi
