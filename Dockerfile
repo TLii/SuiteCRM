@@ -71,9 +71,9 @@ RUN apt update && apt -y upgrade; \
     && mkdir -p /var/log/suitecrm \
     && ln -sf /dev/stdout /var/log/suitecrm/suitecrm.log \
     && mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
-RUN mkdir ${SUITECRM_INSTALL_DIR} || echo "directory exists" 
-COPY --from=composer --chown=www-data:www-data /build ${SUITECRM_INSTALL_DIR}
-RUN mv ${SUITECRM_INSTALL_DIR}/docker-entrypoint.sh /docker-entrypoint.sh \
+RUN mkdir /app || echo "directory exists" 
+COPY --from=composer --chown=www-data:www-data /build /app
+RUN mv /app/docker-entrypoint.sh /docker-entrypoint.sh \
     && chmod 777 /docker-entrypoint.sh;
 ENTRYPOINT ["/docker-entrypoint.sh"]
 WORKDIR ${SUITECRM_INSTALL_DIR}

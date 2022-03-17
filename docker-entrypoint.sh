@@ -3,6 +3,8 @@ set -e
 
 # Move to installation directory if set
 [[ -z ${SUITECRM_INSTALL_DIR+x} ]] && (echo "Install directory not set" >&2; exit 1);
+mkdir -p "$SUITECRM_INSTALL_DIR"
+cp -r /app/. "$SUITECRM_INSTALL_DIR"
 cd "$SUITECRM_INSTALL_DIR" || (echo "Cannot cd to installation directory $SUITECRM_INSTALL_DIR"; exit 2) >&2;
 
 # Apply new custom-code.
