@@ -24,7 +24,6 @@ ENV \
     DATABASE_PASSWORD=changeme \
     DATABASE_PORT=3306 \
     DATABASE_TYPE=mysql \
-    DATABASE_TYPE=mysql \
     DATABASE_USE_SSL=false \
     DATABASE_USER_IS_PRIVILEGED=false \
     DATABASE_USER=dbuser \
@@ -47,7 +46,7 @@ ENV \
     SUITECRM_HOSTNAME=localhost \
     SUITECRM_INSTALL_DIR=/var/www/html \
     SUITECRM_SITE_NAME=SuiteCRM \
-    SUITECRM_SITE_URL=example.com
+    SUITECRM_SITE_URL=example.com 
 
 RUN apt update && apt -y upgrade; \
     apt -y install \
