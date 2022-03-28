@@ -46,7 +46,8 @@ ENV \
     SUITECRM_HOSTNAME=localhost \
     SUITECRM_INSTALL_DIR=/var/www/html \
     SUITECRM_SITE_NAME=SuiteCRM \
-    SUITECRM_SITE_URL=example.com 
+    SUITECRM_SITE_URL=example.com \
+    SUITECRM_CONFIG_LOC=${SUITECRM_INSTALL_DIR}/docker-configs
 
 RUN apt update && apt -y upgrade; \
     apt -y install \
