@@ -71,7 +71,7 @@ RUN apt update && apt -y upgrade; \
     && ln -sf /dev/stdout /var/log/suitecrm/suitecrm.log \
     && mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 RUN mkdir /app || echo "directory exists" 
-RUN groupmod -aG 101 www-data 
+RUN usermod -aG 101 www-data 
 COPY --from=composer --chown=www-data:www-data /build /app
 RUN mv /app/docker-entrypoint.sh /docker-entrypoint.sh \
     && chmod 777 /docker-entrypoint.sh;
