@@ -1,14 +1,24 @@
+# First stage: build with composer
 FROM debian:buster-slim AS composer
 RUN apt -y update && apt -y upgrade; \
-    apt -y install unzip php php-gd php-imap php-intl php-curl php-xml php-zip composer=1.8.4-1+deb10u1
+    apt -y install --no-install-recommends \
+    unzip \
+    php \
+    php-gd \ 
+    php-imap \
+    php-intl \
+    php-curl \
+    php-xml \
+    php-zip \
+    composer=1.8.4-1+deb10u1;
 COPY . /build/
 WORKDIR /build
-RUN composer install --no-dev
-RUN mv custom newcustom; \
+RUN composer install --no-dev; \
+    mv custom newcustom; \
     mkdir custom;
 
 
-
+# Second stage: Install with php-fpm
 FROM php:fpm AS web
 LABEL Name=lwcrm
 LABEL Version=testing
@@ -49,33 +59,43 @@ ENV \
     SUITECRM_SITE_URL=example.com \
     SUITECRM_CONFIG_LOC=${SUITECRM_INSTALL_DIR}/docker-configs
 
+# Install necessary php modules
 RUN apt update && apt -y upgrade; \
     apt -y install \
-        cron \
-        libzip-dev \
-        libfreetype6-dev \
-        libjpeg62-turbo-dev \
-        libpng-dev \
-        libc-client-dev \
-        libkrb5-dev \
-        rsync \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) gd \
-    && docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
-    && docker-php-ext-install imap \
-    && docker-php-ext-install -j$(nproc) mysqli \
-    && docker-php-ext-install -j$(nproc) zip \
-    && docker-php-ext-install -j$(nproc) bcmath \
-    && apt-get -y autoremove \
-    && apt-get -y clean \
-    && mkdir -p /var/log/suitecrm \
-    && ln -sf /dev/stdout /var/log/suitecrm/suitecrm.log \
-    && mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
-RUN mkdir /app || echo "directory exists" 
+    cron \
+    libzip-dev \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev \
+    libc-client-dev \
+    libkrb5-dev \
+    rsync; \
+    docker-php-ext-configure gd --with-freetype --with-jpeg; \
+    docker-php-ext-install -j$(nproc) gd; \
+    docker-php-ext-configure imap --with-kerberos --with-imap-ssl; \
+    docker-php-ext-install imap; \
+    docker-php-ext-install -j$(nproc) mysqli; \
+    docker-php-ext-install -j$(nproc) zip; \
+    docker-php-ext-install -j$(nproc) bcmath; \
+    apt-get -y autoremove; \
+    apt-get -y clean; \
+    rm -rf /var/lib/apt/lists/*; \
+    mkdir -p /var/log/suitecrm; \
+    ln -sf /dev/stdout /var/log/suitecrm/suitecrm.log; \
+    mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"; \
+    mkdir /app || echo "Directory /app exists" ;
+
+# Use uid and gid of www-data used in nginx image
 RUN usermod -aG 101 www-data 
-COPY --from=composer --chown=www-data:www-data /build /app
+
+# Get composer built app
+COPY --from=composer --chown=www-data:www-data /build ${SUITECRM_INSTALL_DIR}
+
+# Move entrypoint to container root
 RUN mv /app/docker-entrypoint.sh /docker-entrypoint.sh \
     && chmod 777 /docker-entrypoint.sh;
+
 ENTRYPOINT ["/docker-entrypoint.sh"]
+
 WORKDIR ${SUITECRM_INSTALL_DIR}
 CMD ["php-fpm"]
